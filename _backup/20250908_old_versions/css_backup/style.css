@@ -1,0 +1,300 @@
+/* ====================================================
+   メインスタイルシート
+   ==================================================== */
+
+/* CSS変数の定義 */
+@import 'variables.css';
+
+/* リセットCSS */
+@import 'reset.css';
+
+/* レイアウト */
+@import 'layout.css';
+
+/* コンポーネント */
+@import 'components.css';
+
+/* ====================================================
+   ユーティリティクラス
+   ==================================================== */
+
+/* テキスト関連 */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.text-white-80 {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.font-bold {
+    font-weight: var(--font-bold);
+}
+
+.font-black {
+    font-weight: var(--font-black);
+}
+
+/* フォントサイズ */
+.text-sm {
+    font-size: var(--font-size-sm);
+}
+
+.text-lg {
+    font-size: var(--font-size-lg);
+}
+
+.text-xl {
+    font-size: var(--font-size-xl);
+}
+
+.text-2xl {
+    font-size: var(--font-size-2xl);
+}
+
+.text-3xl {
+    font-size: var(--font-size-3xl);
+}
+
+/* マージン */
+.mt-2 {
+    margin-top: var(--spacing-2);
+}
+
+.mt-3 {
+    margin-top: var(--spacing-3);
+}
+
+.mt-4 {
+    margin-top: var(--spacing-4);
+}
+
+.mt-6 {
+    margin-top: var(--spacing-6);
+}
+
+.mt-8 {
+    margin-top: var(--spacing-8);
+}
+
+.mb-2 {
+    margin-bottom: var(--spacing-2);
+}
+
+.mb-4 {
+    margin-bottom: var(--spacing-4);
+}
+
+.mb-6 {
+    margin-bottom: var(--spacing-6);
+}
+
+.mb-8 {
+    margin-bottom: var(--spacing-8);
+}
+
+/* パディング */
+.p-4 {
+    padding: var(--spacing-4);
+}
+
+.p-6 {
+    padding: var(--spacing-6);
+}
+
+.p-8 {
+    padding: var(--spacing-8);
+}
+
+/* 表示 */
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+/* ====================================================
+   アニメーション
+   ==================================================== */
+
+/* フェードイン */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* スライドイン */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+/* パルス */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ====================================================
+   カスタムスタイル
+   ==================================================== */
+
+/* 強調テキスト */
+.emphasis-text {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.emphasis-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(90deg, var(--primary-200) 0%, var(--primary-100) 100%);
+    z-index: -1;
+    opacity: 0.6;
+}
+
+/* グラデーションテキスト */
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-700) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 装飾的な要素 */
+.decoration-dot {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* ====================================================
+   改行制御
+   ==================================================== */
+.br-mobile {
+    display: none;
+}
+
+.br-desktop {
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .br-mobile {
+        display: inline;
+    }
+    
+    .br-desktop {
+        display: none;
+    }
+    
+    /* モバイルでの基本テキスト調整 */
+    body {
+        font-size: var(--font-size-base);
+        line-height: 1.7;
+    }
+    
+    p {
+        margin-bottom: var(--spacing-2);  /* 8px - モバイル基準 */
+        line-height: 1.8;
+    }
+    
+    /* 見出しのサイズ調整 */
+    h2 {
+        font-size: clamp(1.5rem, 4vw, var(--font-size-3xl));
+        line-height: 1.4;
+        margin-bottom: var(--spacing-3);  /* 12px - モバイル基準 */
+    }
+    
+    h3 {
+        font-size: clamp(1.25rem, 3.5vw, var(--font-size-2xl));
+        line-height: 1.5;
+        margin-bottom: var(--spacing-2);  /* 8px - モバイル基準 */
+    }
+    
+    /* リスト項目の余白 */
+    li {
+        margin-bottom: var(--spacing-2);  /* 8px - モバイル基準 */
+        line-height: 1.6;
+    }
+}
+
+/* ====================================================
+   プリント用スタイル
+   ==================================================== */
+@media print {
+    .no-print {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+}

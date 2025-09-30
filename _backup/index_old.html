@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学専門家庭教師｜チャート式の解説が分からない理由を根本から解決</title>
+    <meta name="description" content="「なぜその変形を思いつけるのか」を1,2から教える数学専門家庭教師。大阪大学薬学部首席・塾講師研修講師が、根本から超フランクに解説。週168時間のうち99%をサポート。">
+    <meta name="keywords" content="数学家庭教師,高校数学,チャート式,数学専門,個別指導,オンライン家庭教師,大阪,関西,京大,阪大">
+    
+    <!-- OGP Tags -->
+    <meta property="og:title" content="数学専門家庭教師｜根本から教える革新的指導法">
+    <meta property="og:description" content="チャート式の解説が分からない本当の理由。それは「1,2」を飛ばして「3〜7」から始めるから。根本から教える数学専門家庭教師。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:url" content="https://math.nishimoto-learning.jp/">
+    
+    <!-- フォント最適化 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* カラーシステム - シンプルでプロフェッショナル */
+            --primary: #2563eb;  /* 信頼感のある青 */
+            --primary-dark: #1e40af;
+            --primary-light: #dbeafe;
+            --accent: #dc2626;  /* CTAのみに使う赤 */
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --bg-white: #ffffff;
+            --bg-gray: #f9fafb;
+            --border: #e5e7eb;
+            
+            /* タイポグラフィ */
+            --font-base: 'Noto Sans JP', -apple-system, sans-serif;
+            --font-size-base: 16px;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            --font-size-5xl: 3rem;
+            
+            /* スペーシング */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* レイアウト */
+            --max-width: 1200px;
+            --border-radius: 8px;
+            --border-radius-lg: 16px;
+            
+            /* シャドウ */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        body {
+            font-family: var(--font-base);
+            font-size: var(--font-size-base);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            background: var(--bg-white);
+            padding: var(--spacing-3xl) 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, var(--font-size-5xl));
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .subtitle {
+            font-size: clamp(1.125rem, 3vw, var(--font-size-xl));
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: #b91c1c;
+        }
+        
+        /* セクション共通スタイル */
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, var(--font-size-3xl));
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            color: var(--primary-dark);
+            position: relative;
+            padding-bottom: var(--spacing-md);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .hero {
+                padding: var(--spacing-2xl) 0;
+            }
+            
+            .section {
+                padding: var(--spacing-2xl) 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" style="display: inline-block; background: var(--bg-gray); padding: var(--spacing-xs) var(--spacing-md); border-radius: 20px; margin-bottom: var(--spacing-lg); border: 1px solid var(--border);">
+                    <span style="color: var(--primary); font-weight: 700;">大阪大学薬学部首席</span>
+                    <span style="color: var(--text-secondary); margin: 0 var(--spacing-xs);">|</span>
+                    <span style="color: var(--text-secondary);">指導実績150名以上</span>
+                </div>
+                
+                <h1>
+                    チャート式の解説が<br>
+                    分からない<span style="color: var(--primary);">本当の理由</span>
+                </h1>
+                
+                <p class="subtitle">
+                    それは「1,2」を飛ばして「3〜7」から始めるから<br>
+                    <strong>根本から教える</strong>数学専門家庭教師
+                </p>
+                
+                <div class="hero-points" style="margin-bottom: var(--spacing-2xl);">
+                    <div style="display: flex; align-items: center; margin-bottom: var(--spacing-sm);">
+                        <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                        <span>「なぜその変形を思いつけるのか」を丁寧に解説</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: var(--spacing-sm);">
+                        <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                        <span>週168時間のうち99%をLINEでサポート</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                        <span>京大・阪大・北大獣医など難関大合格実績多数</span>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="cta-button">
+                    無料体験で「1,2」を実感する
+                </a>
+                
+                <p style="margin-top: var(--spacing-md); font-size: var(--font-size-sm); color: var(--text-secondary);">
+                    ※ 月3名限定 / 強引な勧誘なし
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 問題共感セクション -->
+    <section class="section" style="background: var(--bg-gray);">
+        <div class="container">
+            <h2 class="section-title">こんな悩み、ありませんか？</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="problem-list" style="background: var(--bg-white); padding: var(--spacing-xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <div style="margin-bottom: var(--spacing-lg); padding-left: var(--spacing-lg); position: relative;">
+                        <span style="position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1.2rem;">☑</span>
+                        <p>チャート式を開いても「<strong>なぜその解法？</strong>」が分からない</p>
+                    </div>
+                    <div style="margin-bottom: var(--spacing-lg); padding-left: var(--spacing-lg); position: relative;">
+                        <span style="position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1.2rem;">☑</span>
+                        <p>解説を読んでも、<strong>解説自体が理解できない</strong></p>
+                    </div>
+                    <div style="margin-bottom: var(--spacing-lg); padding-left: var(--spacing-lg); position: relative;">
+                        <span style="position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1.2rem;">☑</span>
+                        <p>どの問題が重要か<strong>判断できない</strong></p>
+                    </div>
+                    <div style="margin-bottom: var(--spacing-lg); padding-left: var(--spacing-lg); position: relative;">
+                        <span style="position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1.2rem;">☑</span>
+                        <p>勉強しても<strong>点数に結びつかない</strong></p>
+                    </div>
+                    <div style="padding-left: var(--spacing-lg); position: relative;">
+                        <span style="position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1.2rem;">☑</span>
+                        <p>数学の授業が<strong>苦痛の時間</strong>になっている</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--spacing-2xl);">
+                    <p style="font-size: var(--font-size-xl); color: var(--primary-dark); font-weight: 700;">
+                        これらは「才能」の問題ではありません。
+                    </p>
+                    <p style="font-size: var(--font-size-2xl); color: var(--primary); font-weight: 900; margin-top: var(--spacing-sm);">
+                        「教え方」の問題です。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 独自メソッドセクション -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">
+                なぜ私の指導で伸びるのか<br>
+                <span style="font-size: 0.8em; font-weight: 500; color: var(--text-secondary);">3つの革新的アプローチ</span>
+            </h2>
+            
+            <!-- 1〜10理論 -->
+            <div style="max-width: 900px; margin: 0 auto var(--spacing-3xl);">
+                <div style="background: var(--bg-white); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--primary-dark); margin-bottom: var(--spacing-lg); display: flex; align-items: center;">
+                        <span style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: var(--spacing-md); font-weight: 700;">1</span>
+                        学校が教えない「1,2」こそが理解の鍵
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+                        <div style="background: white; padding: var(--spacing-lg); border-radius: var(--border-radius); border-left: 4px solid #ef4444;">
+                            <h4 style="color: #ef4444; margin-bottom: var(--spacing-sm);">❌ 一般的な授業</h4>
+                            <p style="margin-bottom: var(--spacing-sm);">内容を1〜10とすると...</p>
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>学校：</strong>3〜7を教える</p>
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>生徒：</strong>土台がないから理解不能</p>
+                            <p><strong>結果：</strong>暗記に頼るしかない</p>
+                        </div>
+                        
+                        <div style="background: white; padding: var(--spacing-lg); border-radius: var(--border-radius); border-left: 4px solid var(--primary);">
+                            <h4 style="color: var(--primary); margin-bottom: var(--spacing-sm);">⭕ 私の指導</h4>
+                            <p style="margin-bottom: var(--spacing-sm);">まず1,2を丁寧に構築</p>
+                            <p style="margin-bottom: var(--spacing-xs);">→ 3〜7が自然に理解できる</p>
+                            <p style="margin-bottom: var(--spacing-xs);">→ 8〜10（応用）も解ける</p>
+                            <p><strong>結果：</strong>「なぜ」が分かる</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-gray); padding: var(--spacing-lg); border-radius: var(--border-radius);">
+                        <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">例：二次関数の場合</p>
+                        <p style="margin-bottom: var(--spacing-sm);">❌ いきなり「平方完成して頂点を...」</p>
+                        <p style="margin-bottom: var(--spacing-md);">⭕ まず「なぜその変形を思いつけるのか」から</p>
+                        <p style="color: var(--text-secondary);">
+                            なぜ2で割る？なぜその式変形？<br>
+                            この「発想の根本」を丁寧に説明すると<br>
+                            応用問題も自力で解けるようになります
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 超フランク解説法 -->
+            <div style="max-width: 900px; margin: 0 auto var(--spacing-3xl);">
+                <div style="background: var(--bg-white); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--primary-dark); margin-bottom: var(--spacing-lg); display: flex; align-items: center;">
+                        <span style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: var(--spacing-md); font-weight: 700;">2</span>
+                        理学部の先生が陥る「厳密性の罠」
+                    </h3>
+                    
+                    <div style="background: var(--bg-gray); padding: var(--spacing-lg); border-radius: var(--border-radius); margin-bottom: var(--spacing-lg);">
+                        <div style="margin-bottom: var(--spacing-lg);">
+                            <p style="font-weight: 700; color: var(--text-secondary); margin-bottom: var(--spacing-sm);">理学部数学科の先生：</p>
+                            <p style="font-family: monospace; background: white; padding: var(--spacing-sm); border-radius: 4px; color: #ef4444;">
+                                「定義より、∀ε>0に対して...」
+                            </p>
+                            <p style="margin-top: var(--spacing-sm); color: var(--text-secondary);">→ 正確だが、高校生には意味不明</p>
+                        </div>
+                        
+                        <div>
+                            <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">私（薬学部出身）：</p>
+                            <p style="font-family: monospace; background: white; padding: var(--spacing-sm); border-radius: 4px; color: var(--primary);">
+                                「要するに、限りなく近づくってこと」
+                            </p>
+                            <p style="margin-top: var(--spacing-sm); color: var(--primary-dark);">→ 直感的に理解できる</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--primary-light); padding: var(--spacing-lg); border-radius: var(--border-radius); text-align: center;">
+                        <p style="font-size: var(--font-size-lg); color: var(--primary-dark); font-weight: 700;">
+                            数学を「道具」として使ってきたからこそ<br>
+                            本当に必要な部分だけを<br>
+                            最もシンプルに伝えられます
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 学習順序の最適化 -->
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: var(--bg-white); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--primary-dark); margin-bottom: var(--spacing-lg); display: flex; align-items: center;">
+                        <span style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: var(--spacing-md); font-weight: 700;">3</span>
+                        14年の経験から導いた学習順序
+                    </h3>
+                    
+                    <div style="text-align: center; margin-bottom: var(--spacing-lg);">
+                        <p style="font-size: var(--font-size-xl); color: var(--primary); font-weight: 700; margin-bottom: var(--spacing-sm);">
+                            伸びやすい順番で、最速成長
+                        </p>
+                        <p style="color: var(--text-secondary);">
+                            教科書の順番 ≠ 最適な学習順序
+                        </p>
+                    </div>
+                    
+                    <div style="background: var(--bg-gray); padding: var(--spacing-lg); border-radius: var(--border-radius);">
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">📊</span>
+                            <span>どの単元から始めるべきか一目瞭然</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">🔗</span>
+                            <span>単元間の繋がりを可視化</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">⚡</span>
+                            <span>あなた専用にカスタマイズ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 学習管理システムセクション -->
+    <section class="section" style="background: var(--bg-gray);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-2xl);">
+                <h2 class="section-title">
+                    週168時間のうち、授業は1.5時間<br>
+                    <span style="font-size: 0.8em; font-weight: 500; color: var(--text-secondary);">残り99%の時間も、私がサポートします</span>
+                </h2>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: var(--bg-white); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <h3 style="font-size: var(--font-size-xl); color: var(--primary-dark); margin-bottom: var(--spacing-xl); text-align: center;">
+                        押し付けない、段階的導入
+                    </h3>
+                    
+                    <!-- STEP 1 -->
+                    <div style="margin-bottom: var(--spacing-xl); padding: var(--spacing-lg); background: var(--bg-gray); border-radius: var(--border-radius); border-left: 4px solid var(--primary);">
+                        <h4 style="color: var(--primary-dark); margin-bottom: var(--spacing-sm); display: flex; align-items: center;">
+                            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; margin-right: var(--spacing-sm); font-size: 0.9rem;">STEP 1</span>
+                            全員スタート
+                        </h4>
+                        <p style="font-weight: 700; margin-bottom: var(--spacing-sm);">まずは授業に集中</p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>• 毎回の授業レポート</li>
+                            <li>• LINEで質問（24時間以内に回答）</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- STEP 2 -->
+                    <div style="margin-bottom: var(--spacing-xl); padding: var(--spacing-lg); background: var(--bg-gray); border-radius: var(--border-radius); border-left: 4px solid var(--primary);">
+                        <h4 style="color: var(--primary-dark); margin-bottom: var(--spacing-sm); display: flex; align-items: center;">
+                            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; margin-right: var(--spacing-sm); font-size: 0.9rem;">STEP 2</span>
+                            やる気が出てきたら
+                        </h4>
+                        <p style="font-weight: 700; margin-bottom: var(--spacing-sm);">学習日報スタート</p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>• 最初は週2-3回でOK</li>
+                            <li>• つまずいた問題を共有</li>
+                            <li>• 次の授業で優先解説</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- STEP 3 -->
+                    <div style="padding: var(--spacing-lg); background: var(--bg-gray); border-radius: var(--border-radius); border-left: 4px solid var(--primary);">
+                        <h4 style="color: var(--primary-dark); margin-bottom: var(--spacing-sm); display: flex; align-items: center;">
+                            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; margin-right: var(--spacing-sm); font-size: 0.9rem;">STEP 3</span>
+                            目標ができたら
+                        </h4>
+                        <p style="font-weight: 700; margin-bottom: var(--spacing-sm);">フルシステム活用</p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>• 目標管理ダッシュボード</li>
+                            <li>• 成績推移の可視化</li>
+                            <li>• 保護者も進捗確認可能</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: var(--primary-light); padding: var(--spacing-lg); border-radius: var(--border-radius); text-align: center; margin-top: var(--spacing-xl);">
+                        <p style="font-size: var(--font-size-lg); color: var(--primary-dark); font-weight: 700; margin-bottom: var(--spacing-sm);">
+                            💡 押し付けません
+                        </p>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+                            本人の成長に合わせて、段階的に。<br>
+                            だから続く。だから伸びる。
+                        </p>
+                        <p style="color: var(--primary); font-weight: 700; font-size: var(--font-size-lg);">
+                            しかも、これら全て<br>
+                            追加料金なし（無料オプション）
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 実績セクション -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">実績と生徒の声</h2>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <!-- 合格実績 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-2xl);">
+                    <div style="background: var(--bg-white); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border); text-align: center;">
+                        <p style="font-size: var(--font-size-3xl); color: var(--primary); font-weight: 900; margin-bottom: var(--spacing-sm);">🎓</p>
+                        <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">合格実績</p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            京都大学 工学部<br>
+                            大阪大学 工学部<br>
+                            北海道大学 獣医学部<br>
+                            他、国公立大学多数
+                        </p>
+                    </div>
+                    
+                    <div style="background: var(--bg-white); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border); text-align: center;">
+                        <p style="font-size: var(--font-size-3xl); color: var(--primary); font-weight: 900; margin-bottom: var(--spacing-sm);">📈</p>
+                        <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">成績向上事例</p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            6ヶ月で偏差値40→65<br>
+                            3ヶ月で定期テスト30点→75点<br>
+                            赤点回避率100%
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 生徒の声 -->
+                <div style="background: var(--bg-gray); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg);">
+                    <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--primary); margin-bottom: var(--spacing-xl); font-weight: 900;">
+                        「革命が起こった」
+                    </h3>
+                    
+                    <div style="background: var(--bg-white); padding: var(--spacing-lg); border-radius: var(--border-radius); margin-bottom: var(--spacing-lg);">
+                        <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">高2 M君（偏差値45→62）</p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            「今まで暗記していた公式が『なぜそうなるか』分かった瞬間、数学の見え方が変わりました。まさに革命です。」
+                        </p>
+                    </div>
+                    
+                    <div style="background: var(--bg-white); padding: var(--spacing-lg); border-radius: var(--border-radius);">
+                        <p style="font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-sm);">保護者の声</p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            「勉強しなさいと言わなくなりました。自分から机に向かうようになり、親子関係も改善しました。」
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 講師プロフィール -->
+    <section class="section" style="background: var(--bg-gray);">
+        <div class="container">
+            <h2 class="section-title">
+                なぜ私が、あなたのお子様を<br>
+                変えられるのか
+            </h2>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: var(--bg-white); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border);">
+                    <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                        <p style="font-size: var(--font-size-xl); color: var(--primary-dark); font-weight: 700; padding: var(--spacing-sm) 0; border-top: 3px solid var(--primary); border-bottom: 3px solid var(--primary); display: inline-block;">
+                            教育の専門家の、そのまた専門家
+                        </p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-md);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">✓</span>
+                            <span><strong>大阪大学薬学部 首席入学</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-md);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">✓</span>
+                            <span><strong>薬剤師資格・TOEIC 925点</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-md);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">✓</span>
+                            <span><strong>指導歴14年・150名以上</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: var(--spacing-md);">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">✓</span>
+                            <span><strong>塾講師の研修講師として8年</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm); font-size: 1.5rem;">✓</span>
+                            <span><strong>書籍『塾講師のいろは』出版</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--primary-light); padding: var(--spacing-lg); border-radius: var(--border-radius); text-align: center;">
+                        <p style="font-size: var(--font-size-lg); color: var(--primary-dark); font-weight: 700;">
+                            つまり、<br>
+                            「教える人を教える」立場で<br>
+                            教育技術を体系化してきました
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA（最終） -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: var(--font-size-3xl); color: var(--primary-dark); margin-bottom: var(--spacing-lg); font-weight: 900;">
+                    比較検討中の方へ
+                </h2>
+                
+                <p style="font-size: var(--font-size-xl); color: var(--text-secondary); margin-bottom: var(--spacing-2xl); line-height: 1.8;">
+                    他の家庭教師と迷っているなら、<br>
+                    まずは無料体験で<br>
+                    <strong style="color: var(--primary-dark);">「教え方の違い」</strong>を実感してください
+                </p>
+                
+                <div style="background: var(--bg-gray); padding: var(--spacing-xl); border-radius: var(--border-radius-lg); margin-bottom: var(--spacing-2xl);">
+                    <h3 style="font-size: var(--font-size-xl); color: var(--primary-dark); margin-bottom: var(--spacing-lg);">
+                        📝 90分の無料体験で得られるもの
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); text-align: left;">
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                            <span>「1,2」から教える授業を実体験</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                            <span>お子様専用の学習診断</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                            <span>具体的な成績向上プラン</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="color: var(--primary); margin-right: var(--spacing-sm);">✓</span>
+                            <span>押し売り一切なし</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="cta-button" style="font-size: var(--font-size-xl); padding: var(--spacing-lg) var(--spacing-2xl);">
+                    今すぐ無料体験を予約する
+                </a>
+                
+                <p style="margin-top: var(--spacing-md); color: var(--text-secondary);">
+                    LINE追加で簡単申込（1分）
+                </p>
+                
+                <p style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background: var(--bg-gray); color: var(--accent); border-radius: var(--border-radius); font-weight: 700;">
+                    ※ 現在、新規受付は月3名まで
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 追伸 -->
+    <section style="background: var(--bg-gray); padding: var(--spacing-2xl) 0;">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <p style="font-weight: 700; color: var(--text-secondary); margin-bottom: var(--spacing-lg);">追伸</p>
+                
+                <p style="font-size: var(--font-size-lg); line-height: 1.8; color: var(--text-primary); margin-bottom: var(--spacing-lg);">
+                    数学ができないのは、<br>
+                    お子様の才能の問題ではありません。
+                </p>
+                
+                <p style="font-size: var(--font-size-lg); line-height: 1.8; color: var(--text-primary); margin-bottom: var(--spacing-lg);">
+                    そして、もう一つ大切なこと。
+                </p>
+                
+                <p style="font-size: var(--font-size-xl); font-weight: 700; color: var(--primary-dark); margin-bottom: var(--spacing-lg);">
+                    「モチベーションがあるから勉強する」<br>
+                    のではなく<br>
+                    「分かるようになるからモチベーションが上がる」<br>
+                    のです。
+                </p>
+                
+                <p style="font-size: var(--font-size-lg); color: var(--primary); font-weight: 700;">
+                    だから、まず「分かる」を作ります。<br>
+                    最初の一歩を、一緒に踏み出しませんか？
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- フッター -->
+    <footer style="background: var(--primary-dark); color: white; padding: var(--spacing-xl) 0; text-align: center;">
+        <div class="container">
+            <p style="margin-bottom: var(--spacing-sm);">数学専門家庭教師</p>
+            <p style="font-size: 0.875rem; opacity: 0.8;">© 2025 Nishimoto Learning. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

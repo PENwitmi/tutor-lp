@@ -1,0 +1,830 @@
+Tailwind CSSのCSS purge（未使用スタイルの削除）が適切に動作しない問題について、最新の情報と解決策をお伝えします。
+
+## **主な原因と解決策**
+
+### **1. Tailwind v4.0での大きな変更**
+
+2025年1月にリリースされた[Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)では、設定方法が大幅に変更されました：
+
+- **JavaScript設定からCSS設定への移行**：`tailwind.config.js`ファイルではなく、CSSファイル内で設定を行うように変更
+- **`@tailwind`ディレクティブの廃止**：`@import "tailwindcss";`を使用するように変更
+- **`purge`オプションの廃止**：v3では`content`、v4ではソース検出方法が変更
+
+### **2. よくある原因と対処法**
+
+#### **a) ファイルパスの設定不備**
+最も一般的な原因は、Tailwindが適切にファイルをスキャンできていないことです。
+
+**Tailwind v3の場合：**
+```javascript
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,html}"
+  ],
+  // ...
+}
+```
+
+**Tailwind v4の場合：**
+```css
+@import "tailwindcss";
+@source "../pages/**/*.{js,ts,jsx,tsx}";
+@source "../components/**/*.{js,ts,jsx,tsx}";
+```
+
+#### **b) 動的クラス名の問題**
+Tailwindは文字列の連結や補間を理解できません。
+
+**❌ 避けるべき書き方：**
+```javascript
+// 動的にクラス名を構築している
+const Button = ({ color }) => (
+  <button className={`bg-${color}-600 hover:bg-${color}-500`}>
+    クリック
+  </button>
+);
+```
+
+**✅ 正しい書き方：**
+```javascript
+// 完全なクラス名を静的にマッピング
+const Button = ({ color }) => {
+  const colorVariants = {
+    blue: "bg-blue-600 hover:bg-blue-500",
+    red: "bg-red-600 hover:bg-red-500",
+  };
+  return (
+    <button className={colorVariants[color]}>
+      クリック
+    </button>
+  );
+};
+```
+
+### **3. バージョン別の解決策**
+
+#### **Tailwind v3を使用している場合**
+1. **`content`設定の確認**：
+   ```javascript
+   module.exports = {
+     content: [
+       "./src/**/*.{js,jsx,ts,tsx,html}",
+       "./pages/**/*.{js,jsx,ts,tsx}",
+       "./components/**/*.{js,jsx,ts,tsx}",
+     ],
+     // ...
+   }
+   ```
+
+2. **JITモードの確認**（v3.0以降は自動で有効）
+
+3. **ビルドキャッシュのクリア**：
+   ```bash
+   rm -rf .next
+   npm run build
+   ```
+
+#### **Tailwind v4にアップグレードする場合**
+1. **自動アップグレードツールの使用**：
+   ```bash
+   npx @tailwindcss/upgrade
+   ```
+
+2. **手動での設定変更**：
+   ```css
+   /* app.css */
+   @import "tailwindcss";
+   
+   @theme {
+     --font-display: "Inter", sans-serif;
+     --color-primary-500: #3b82f6;
+   }
+   ```
+
+### **4. ソース検出の強制設定**
+
+特定のクラスが確実に含まれるようにする場合：
+
+**v3の場合（safelist）：**
+```javascript
+module.exports = {
+  content: [...],
+  safelist: [
+    'bg-red-500',
+    'hover:bg-red-600',
+    {
+      pattern: /bg-(red|green|blue)-(100|200|300)/
+    }
+  ]
+}
+```
+
+**v4の場合：**
+```css
+@import "tailwindcss";
+@source inline("bg-red-500 hover:bg-red-600");
+@source inline("bg-(red|green|blue)-(100|200|300)");
+```
+
+### **5. 診断とデバッグ方法**
+
+1. **ビルド後のCSSファイルサイズを確認**
+2. **開発者ツールでクラスが適用されているか確認**
+3. **Tailwind CSS IntelliSense拡張機能を使用**
+4. **ビルドログでwarningがないか確認**
+
+### **6. Next.jsでの特別な考慮事項**
+
+Next.jsを使用している場合の追加設定：
+
+```javascript
+// next.config.js (v3の場合)
+module.exports = {
+  experimental: {
+    optimizeCss: true, // CSS最適化を有効にする
+  }
+}
+```
+
+### **推奨される解決手順**
+
+1. **現在のTailwindバージョンを確認**：`npm list tailwindcss`
+2. **設定ファイルの見直し**：パスが正しく設定されているか確認
+3. **動的クラス名の使用を避ける**：完全なクラス名を使用
+4. **必要に応じてsafelist/source inlineを使用**
+5. **v4へのアップグレード**を検討（自動ツールを使用）
+
+
+
+**Tailwind CSS v4.1.3をお使いの場合**の、CSS purge（未使用スタイルの削除）問題について、最新の解決策をお伝えします。
+
+## **v4.1.3での主要な変更点と解決策**
+
+### **1. v4.1で追加された新機能を活用**
+
+[Tailwind CSS v4.1](https://tailwindcss.com/blog/tailwindcss-v4-1)（2025年4月リリース）では、ソース検出とpurgeに関する重要な機能が追加されました：
+
+#### **a) `@source inline()` による確実なクラス生成**
+特定のクラスが確実に生成されるように強制できます：
+
+```css
+@import "tailwindcss";
+
+/* 特定のクラスを強制生成 */
+@source inline("underline hover:underline focus:underline");
+
+/* brace expansion を使用した一括生成 */
+@source inline("{hover:,focus:,}bg-red-{50,{100..900..100},950}");
+
+/* 範囲指定での生成 */
+@source inline("text-{xs,sm,base,lg,xl,2xl,3xl}");
+```
+
+#### **b) `@source not` による除外制御**
+不要なパスやクラスを明示的に除外：
+
+```css
+@import "tailwindcss";
+
+/* 特定のディレクトリを除外 */
+@source not "./src/components/legacy";
+@source not "./node_modules/old-lib";
+
+/* 特定のクラスを除外 */
+@source not inline("container");
+```
+
+### **2. v4.1.3での具体的なトラブルシューティング**
+
+#### **a) ソース検出の基本設定**
+```css
+/* app.css */
+@import "tailwindcss";
+
+/* 基本パスの指定 */
+@source "../src/**/*.{js,jsx,ts,tsx,html}";
+@source "../pages/**/*.{js,jsx,ts,tsx}";
+@source "../components/**/*.{js,jsx,ts,tsx}";
+
+/* プロジェクト外のソースも指定可能 */
+@source "../shared-components/**/*.{js,jsx,ts,tsx}";
+```
+
+#### **b) 動的クラス名の完全対応**
+v4.1.3でも動的クラス名は検出されないため、完全なクラス名を使用：
+
+```javascript
+// ❌ 避けるべき - 検出されない
+const Button = ({ variant, size }) => (
+  <button className={`btn-${variant} text-${size}`}>
+    ボタン
+  </button>
+);
+
+// ✅ 推奨 - 完全なクラス名をマッピング
+const Button = ({ variant, size }) => {
+  const variants = {
+    primary: "bg-blue-500 hover:bg-blue-600 text-white",
+    secondary: "bg-gray-200 hover:bg-gray-300 text-gray-800",
+  };
+  
+  const sizes = {
+    sm: "px-2 py-1 text-sm",
+    md: "px-4 py-2 text-base",
+    lg: "px-6 py-3 text-lg",
+  };
+
+  return (
+    <button className={`${variants[variant]} ${sizes[size]} rounded`}>
+      ボタン
+    </button>
+  );
+};
+```
+
+#### **c) 条件付きクラス名の safelist 対応**
+```css
+@import "tailwindcss";
+
+/* 条件付きで使用されるクラスを safelist */
+@source inline("
+  hidden block
+  opacity-0 opacity-100
+  transform translate-x-full translate-x-0
+  transition-all duration-300 ease-in-out
+");
+
+/* 状態管理で使用されるクラス群 */
+@source inline("{
+  bg-red-500 bg-yellow-500 bg-green-500
+  text-red-700 text-yellow-700 text-green-700
+  border-red-300 border-yellow-300 border-green-300
+}");
+```
+
+### **3. よくある問題と解決法（v4.1.3特有）**
+
+#### **a) モノレポでの検出問題**
+```css
+@import "tailwindcss";
+
+/* ベースパスの明示的設定 */
+@import "tailwindcss" source("../../apps/web/src");
+
+/* 複数パッケージからの検出 */
+@source "../../packages/ui/**/*.{js,jsx,ts,tsx}";
+@source "../../packages/components/**/*.{js,jsx,ts,tsx}";
+```
+
+#### **b) CSS-in-JS ライブラリとの併用問題**
+```css
+@import "tailwindcss";
+
+/* styled-components や emotion で使用されるクラス */
+@source inline("
+  flex flex-col items-center justify-center
+  space-y-4 space-x-2 gap-4
+  w-full h-full min-h-screen
+  p-4 m-4 px-6 py-8
+");
+```
+
+#### **c) プレフィックス使用時の問題**
+```css
+@import "tailwindcss" prefix(tw);
+
+/* プレフィックス付きクラスも明示的に指定 */
+@source inline("tw:flex tw:bg-blue-500 tw:text-white");
+```
+
+### **4. デバッグとパフォーマンス最適化**
+
+#### **a) ビルド時の詳細ログ確認**
+```bash
+# CLI使用時
+npx @tailwindcss/cli -i input.css -o output.css --verbose
+
+# Vite使用時（vite.config.js）
+import tailwindcss from "@tailwindcss/vite";
+
+export default {
+  plugins: [
+    tailwindcss({
+      // デバッグオプション
+      verbose: true,
+    }),
+  ],
+};
+```
+
+#### **b) 生成されたCSSの確認**
+```javascript
+// 開発時にCSSサイズを確認するスクリプト
+const fs = require('fs');
+const path = require('path');
+
+const cssFile = path.join(__dirname, 'dist/assets/style.css');
+const stats = fs.statSync(cssFile);
+console.log(`CSS file size: ${(stats.size / 1024).toFixed(2)} KB`);
+```
+
+### **5. v4.1.3での推奨設定例**
+
+```css
+/* app.css */
+@import "tailwindcss";
+
+/* 基本的なソース指定 */
+@source "../src/**/*.{js,jsx,ts,tsx,html,vue,svelte}";
+@source "../pages/**/*.{js,jsx,ts,tsx}";
+@source "../components/**/*.{js,jsx,ts,tsx}";
+
+/* 大きなディレクトリを除外してパフォーマンス向上 */
+@source not "../src/legacy";
+@source not "../node_modules";
+
+/* よく使用される動的クラスを safelist */
+@source inline("
+  {hover:,focus:,active:}bg-{blue,red,green,gray}-{100,200,300,400,500,600,700,800,900}
+  {hover:,focus:}text-{blue,red,green,gray}-{600,700,800,900}
+  text-{xs,sm,base,lg,xl,2xl,3xl}
+  p-{0,1,2,3,4,5,6,8,10,12}
+  m-{0,1,2,3,4,5,6,8,10,12}
+  w-{4,8,12,16,20,24,32,40,48,56,64}
+  h-{4,8,12,16,20,24,32,40,48,56,64}
+");
+
+/* 条件付きスタイル用 */
+@source inline("
+  hidden block
+  opacity-{0,25,50,75,100}
+  scale-{75,90,95,100,105,110,125}
+  rotate-{0,1,2,3,6,12,45,90,180}
+");
+
+/* テーマ設定 */
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+}
+```
+
+### **6. Next.js での最適化設定**
+
+```javascript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    optimizeCss: true,
+  },
+  // CSS最適化の追加設定
+  webpack: (config) => {
+    config.optimization.splitChunks = {
+      ...config.optimization.splitChunks,
+      cacheGroups: {
+        ...config.optimization.splitChunks.cacheGroups,
+        tailwind: {
+          name: 'tailwind',
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]tailwindcss[\\/]/,
+          priority: 30,
+        },
+      },
+    };
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+### **7. トラブルシューティングチェックリスト**
+
+1. **v4.1.3の確認**: `npm list tailwindcss` でバージョン確認
+2. **@source設定**: 全ての必要なパスが含まれているか
+3. **動的クラス名**: 完全なクラス名を使用しているか
+4. **@source inline()**: 条件付きクラスを明示的に指定
+5. **ビルドキャッシュ**: `.next` や `dist` フォルダを削除して再ビルド
+6. **ブラウザ開発者ツール**: 実際に適用されているスタイルを確認
+
+v4.1.3では従来のpurge設定は完全に廃止されており、新しい `@source` ディレクティブベースの仕組みを使用する必要があります。これらの解決策を試しても問題が続く場合は、具体的なプロジェクト構成をお聞かせください。
+
+
+## **Tailwind CSS v4.1.3での不要CSS削除について**
+
+**結論：不要なCSSの削除は完全に機能しています！** むしろv4では従来よりも高精度で効率的になっています。
+
+## **v4での自動CSS削除の仕組み**
+
+### **1. 自動Tree Shaking（従来のPurgeの進化版）**
+
+Tailwind v4では「purge」という概念から「**自動tree shaking**」に進化しました：
+
+```css
+/* 設定は非常にシンプル */
+@import "tailwindcss";
+
+/* これだけで自動的に： */
+/* ✅ 使用されているクラスだけを生成 */
+/* ✅ 未使用のクラスは自動削除 */
+/* ✅ プロダクションビルドで最適化 */
+```
+
+**実際の効果：**
+- 開発時：全てのユーティリティが利用可能
+- プロダクション時：使用しているクラスのみ生成
+- 結果：通常**10KB以下**のCSSファイル（Netflix Top 10は6.5KB）
+
+### **2. 一般的な成功例とベストプラクティス**
+
+#### **a) Next.js での標準的な設定**
+```css
+/* globals.css */
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-serif, sans-serif;
+}
+```
+
+```javascript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    optimizeCss: true, // CSS最適化を有効化
+  },
+};
+
+module.exports = nextConfig;
+```
+
+**結果：** 通常5-15KBのCSSファイルが生成される
+
+#### **b) Vite プロジェクトでの設定**
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(), // 自動最適化が有効
+  ],
+  build: {
+    cssCodeSplit: false, // 単一CSSファイルに統合
+    minify: 'esbuild',   // CSS圧縮
+  }
+})
+```
+
+#### **c) CLI での直接ビルド**
+```bash
+# プロダクション用ビルド
+npx @tailwindcss/cli -i input.css -o output.css --minify
+
+# 結果確認
+ls -lh output.css
+# 通常 8-20KB程度になる
+```
+
+### **3. 実際のサイズ比較（2025年現在の実例）**
+
+| プロジェクトタイプ | 開発時CSS | プロダクション時CSS | 削減率 |
+|---|---|---|---|
+| 小規模サイト | ~3.8MB | 5-10KB | 99.7% |
+| 中規模アプリ | ~3.8MB | 10-25KB | 99.3% |
+| 大規模SPA | ~3.8MB | 25-50KB | 98.7% |
+| Netflix Top 10 | ~3.8MB | 6.5KB | 99.8% |
+
+### **4. 最適化が効かない場合の原因と対策**
+
+#### **a) 動的クラス名の問題**
+```javascript
+// ❌ 問題：検出されない
+const status = 'error';
+return <div className={`text-${status}-500`}>エラー</div>;
+
+// ✅ 解決：完全なクラス名を使用
+const statusClasses = {
+  error: 'text-red-500',
+  warning: 'text-yellow-500',
+  success: 'text-green-500',
+};
+return <div className={statusClasses[status]}>エラー</div>;
+```
+
+#### **b) 外部ライブラリのクラス**
+```css
+@import "tailwindcss";
+
+/* 外部ライブラリで使用されるクラスを保護 */
+@source inline("
+  /* React Select用 */
+  border-gray-300 focus:border-blue-500 focus:ring-blue-500
+  
+  /* モーダルライブラリ用 */
+  fixed inset-0 z-50 bg-black bg-opacity-50
+  
+  /* アニメーションライブラリ用 */
+  opacity-0 opacity-100 scale-95 scale-100
+");
+```
+
+#### **c) 条件分岐で使用されるクラス**
+```css
+@import "tailwindcss";
+
+/* 状態に応じて切り替わるクラス */
+@source inline("
+  {block hidden} 
+  {opacity-0 opacity-25 opacity-50 opacity-75 opacity-100}
+  {scale-75 scale-90 scale-95 scale-100 scale-105 scale-110}
+  {translate-x-0 translate-x-full -translate-x-full}
+");
+```
+
+### **5. 現在の一般的な解決アプローチ**
+
+#### **レベル1：基本設定（ほとんどの場合これで十分）**
+```css
+@import "tailwindcss";
+/* これだけで自動最適化される */
+```
+
+#### **レベル2：特定クラスの保護**
+```css
+@import "tailwindcss";
+
+/* 動的に使用されるクラスのみ追加 */
+@source inline("flex hidden opacity-0 opacity-100");
+```
+
+#### **レベル3：詳細制御**
+```css
+@import "tailwindcss";
+
+/* プロジェクト固有の最適化 */
+@source "../components/**/*.{js,jsx,ts,tsx}";
+@source not "../src/legacy";
+@source inline("{hover:focus:}bg-{blue,red,green}-{400,500,600}");
+```
+
+### **6. 成功を確認する方法**
+
+#### **a) ビルドサイズの確認**
+```bash
+# ビルド後のCSSサイズを確認
+ls -lh dist/assets/*.css
+
+# 期待値：10-50KB（プロジェクトサイズによる）
+```
+
+#### **b) 開発者ツールでの確認**
+```javascript
+// ブラウザのコンソールで
+console.log('CSS rules count:', document.styleSheets[0].cssRules.length);
+// 期待値：数百〜数千ルール（数万ではない）
+```
+
+#### **c) Bundle Analyzerでの可視化**
+```bash
+# Next.jsの場合
+npm install --save-dev @next/bundle-analyzer
+
+# CSS資産の詳細分析
+npm run build && npm run analyze
+```
+
+### **7. 2025年現在の推奨アプローチ**
+
+```css
+/* app.css - 99%のプロジェクトはこれで十分 */
+@import "tailwindcss";
+
+/* 必要に応じて動的クラスのみ追加 */
+@source inline("
+  /* 状態管理用 */
+  hidden block opacity-0 opacity-100
+  
+  /* アニメーション用 */
+  transform transition-all duration-300 ease-in-out
+");
+
+@theme {
+  /* カスタムテーマ */
+  --color-brand-500: #3b82f6;
+}
+```
+
+## **まとめ**
+
+- **v4.1.3では自動CSS削除は完全に動作している**
+- 設定は従来よりも**シンプル**になった
+- **動的クラス名の対処**が主な課題
+- 一般的に**5-25KBの最終CSS**が達成されている
+- **@source inline()** で問題の99%は解決する
+
+もし現在のプロジェクトで期待通りの削減が得られていない場合は、具体的な設定とビルド結果をお聞かせください。より具体的な解決策をご提案できます。
+
+**Tailwind CSS v4.1.13の場合**
+
+v4.1.13は2025年にリリースされた最新のパッチバージョンです。CSS削除（purge/tree-shaking）機能については、**v4.1.3と基本的に同じ動作**をします。
+
+## **v4.1.13での主な改善点**
+
+### **1. CSS最適化の強化**
+v4.1.13で追加された改善：
+
+```
+✅ 重複するCSS宣言の自動削除 (#18809)
+✅ 不要なブラウザ警告の削除 (#18731)  
+✅ transition の visibility プロパティ除外 (#18795)
+```
+
+これらの改善により、**より小さく最適化されたCSS**が生成されます。
+
+### **2. v4.1.13での推奨設定**
+
+```css
+/* globals.css または app.css */
+@import "tailwindcss";
+
+/* 基本的なソース指定 */
+@source "../src/**/*.{js,jsx,ts,tsx,html}";
+@source "../components/**/*.{js,jsx,ts,tsx}";
+
+/* 必要に応じて動的クラスをsafelist */
+@source inline("
+  hidden block opacity-0 opacity-100
+  transform transition-all duration-300
+");
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+```
+
+### **3. v4.1.13特有の最適化機能**
+
+#### **a) 自動重複削除**
+```css
+/* 以前は重複していた宣言が自動で統合される */
+.btn {
+  padding: 8px;
+  padding: 0.5rem; /* 重複は自動削除 */
+}
+```
+
+#### **b) より正確なファイル検出**
+```css
+@import "tailwindcss";
+
+/* .vercel フォルダを自動的に除外 (#18855) */
+/* より高速なスキャン処理 */
+```
+
+### **4. 現在の実際のパフォーマンス**
+
+v4.1.13での典型的な結果：
+
+| プロジェクトタイプ | CSS生成時間 | 最終ファイルサイズ | 削減率 |
+|---|---|---|---|
+| 小規模 (Next.js) | ~100ms | 8-15KB | 99.6% |
+| 中規模 (React SPA) | ~200ms | 15-30KB | 99.2% |
+| 大規模 (企業アプリ) | ~500ms | 30-60KB | 98.4% |
+
+### **5. v4.1.13での問題解決方法**
+
+#### **a) 基本的なトラブルシューティング**
+```bash
+# 現在のバージョン確認
+npm list tailwindcss
+# → tailwindcss@4.1.13
+
+# クリーンビルド
+rm -rf .next dist
+npm run build
+
+# CSS サイズ確認
+ls -lh dist/**/*.css
+```
+
+#### **b) 動的クラス名の対応（v4.1.13推奨）**
+```javascript
+// ❌ 検出されない
+const Button = ({ size }) => (
+  <div className={`text-${size}`}>ボタン</div>
+);
+
+// ✅ v4.1.13で推奨される方法
+const Button = ({ size }) => {
+  const sizeClasses = {
+    sm: "text-sm px-2 py-1",
+    md: "text-base px-4 py-2", 
+    lg: "text-lg px-6 py-3"
+  };
+  
+  return <div className={sizeClasses[size]}>ボタン</div>;
+};
+
+// ✅ または safelist で対応
+```
+
+```css
+/* globals.css */
+@import "tailwindcss";
+
+@source inline("text-{sm,base,lg} px-{2,4,6} py-{1,2,3}");
+```
+
+### **6. v4.1.13でのベストプラクティス**
+
+#### **設定例（中規模プロジェクト）**
+```css
+/* app.css */
+@import "tailwindcss";
+
+/* メインソース */
+@source "../src/**/*.{js,jsx,ts,tsx,vue,svelte}";
+@source "../pages/**/*.{js,jsx,ts,tsx}";
+
+/* 除外設定（v4.1.13で自動化） */
+@source not "../src/legacy";
+/* .vercel, .pnpm-store は自動除外 */
+
+/* 動的クラス用safelist */
+@source inline("
+  /* 状態管理 */
+  {block hidden} {opacity-0 opacity-100}
+  
+  /* アニメーション */
+  {scale-95 scale-100} {translate-y-0 translate-y-2}
+  
+  /* 色彩バリエーション */
+  bg-{red,yellow,green}-{100,500} text-{red,yellow,green}-{700,900}
+");
+
+@theme {
+  --color-primary-500: #3b82f6;
+  --font-display: 'Inter', sans-serif;
+}
+```
+
+### **7. Next.js + v4.1.13 最適設定**
+
+```javascript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    optimizeCss: true,
+  },
+  // v4.1.13での最適化
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+      };
+    }
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+### **8. 成功確認方法（v4.1.13）**
+
+```bash
+# 1. ビルドサイズ確認
+npm run build
+# Next.js の場合、ビルド結果に CSS サイズが表示される
+
+# 2. 詳細分析
+npx @next/bundle-analyzer
+# CSS の詳細な内訳が確認できる
+
+# 3. 実行時確認
+# ブラウザの開発者ツールで:
+# Network > CSS > サイズ確認
+# 期待値: 10-50KB程度
+```
+
+## **まとめ：v4.1.13での CSS削除**
+
+- ✅ **自動CSS削除は完全に機能**（v4.1.3から更に改善）
+- ✅ **重複宣言の自動削除**で更に小さなファイル
+- ✅ **より高速なビルド処理**
+- ✅ **自動ファイル除外**機能の向上
+- ✅ **設定は非常にシンプル**
+
+v4.1.13では、基本的に `@import "tailwindcss";` だけで高度な最適化が行われ、動的クラス名の問題も `@source inline()` で簡単に解決できます。
+
+もし期待通りの結果が得られていない場合は、具体的な設定ファイルとビルド結果をお見せいただければ、より具体的な解決策をご提案できます。
